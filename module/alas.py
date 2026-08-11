@@ -80,6 +80,11 @@ class AzurLaneAutoScript:
             return True
         except TaskEnd:
             return True
+        except EmulatorNotRunningError as e:
+            logger.warning(e)
+            if self.recover_emulator():
+                self.config.task_call('Restart')
+            return False
         except GameNotRunningError as e:
             logger.warning(e)
             self.config.task_call('Restart')
@@ -148,6 +153,30 @@ class AzurLaneAutoScript:
                 content=f"<{self.config_name}> Exception occured",
             )
             exit(1)
+
+    def recover_emulator(self):
+        """Restart an unavailable emulator and rebuild device resources."""
+        device = self.device
+        logger.warning('Emulator disconnected, attempting to restart it')
+
+        try:
+            try:
+                device.nemu_ipc_release()
+            except Exception as e:
+                logger.warning(f'Failed to release NemuIpc before emulator restart: {e}')
+
+            if not device.emulator_start():
+                logger.error('Emulator restart failed')
+                return False
+
+            logger.info('Emulator restart completed, device resources will be rebuilt')
+            return True
+        except Exception as e:
+            logger.exception(e)
+            logger.error('Emulator restart failed')
+            return False
+        finally:
+            del_cached_property(self, 'device')
 
     def save_error_log(self):
         """

@@ -17,7 +17,7 @@ from module.device.method.minitouch import insert_swipe, random_rectangle_point
 from module.device.method.pool import JobTimeout, WORKER_POOL
 from module.device.method.utils import RETRY_TRIES, retry_sleep
 from module.device.platform.plat import Platform
-from module.exception import RequestHumanTakeover
+from module.exception import EmulatorNotRunningError, RequestHumanTakeover
 from module.logger import logger
 
 
@@ -164,6 +164,7 @@ def retry(func):
             self (NemuIpcImpl):
         """
         init = None
+        emulator_error = None
         for _ in range(RETRY_TRIES):
             # Extend timeout on retries
             if func.__name__ == 'screenshot':
@@ -177,31 +178,38 @@ def retry(func):
                 return func(self, *args, **kwargs)
             # Can't handle
             except RequestHumanTakeover:
+                emulator_error = None
                 break
             # Can't handle
             except NemuIpcIncompatible as e:
                 logger.error(e)
+                emulator_error = None
                 break
             # Function call timeout
             except JobTimeout:
                 logger.warning(f'Func {func.__name__}() call timeout, retrying: {_}')
+                emulator_error = None
 
                 def init():
                     pass
             # NemuIpcError
             except NemuIpcError as e:
                 logger.error(e)
+                emulator_error = e
 
                 def init():
                     self.reconnect()
             # Unknown, probably a trucked image
             except Exception as e:
                 logger.exception(e)
+                emulator_error = None
 
                 def init():
                     pass
 
         logger.critical(f'Retry {func.__name__}() failed')
+        if emulator_error is not None:
+            raise EmulatorNotRunningError('NemuIpc connection lost') from emulator_error
         raise RequestHumanTakeover
 
     return retry_wrapper
