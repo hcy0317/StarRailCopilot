@@ -59,6 +59,19 @@ class ScrcpyCore(Connection):
             with self._scrcpy_control_socket_lock:
                 self._scrcpy_server_start()
 
+    def _scrcpy_server_command(self) -> t.List[str]:
+        local_jar_name = self.config.SCRCPY_FILEPATH_LOCAL.replace('\\', '/').rsplit('/', 1)[-1]
+        remote_jar_name = self.config.SCRCPY_FILEPATH_REMOTE.replace('\\', '/').rsplit('/', 1)[-1]
+        if 'v1.25' in remote_jar_name:
+            return ScrcpyOptions.command_v125(jar_path=self.config.SCRCPY_FILEPATH_REMOTE)
+        if 'v1.20' in remote_jar_name:
+            return ScrcpyOptions.command_v120(jar_path=self.config.SCRCPY_FILEPATH_REMOTE)
+        if 'v1.25' in local_jar_name:
+            return ScrcpyOptions.command_v125(jar_path=self.config.SCRCPY_FILEPATH_REMOTE)
+        if 'v1.20' in local_jar_name:
+            return ScrcpyOptions.command_v120(jar_path=self.config.SCRCPY_FILEPATH_REMOTE)
+        return ScrcpyOptions.command_v125(jar_path=self.config.SCRCPY_FILEPATH_REMOTE)
+
     def _scrcpy_server_start(self):
         """
         Connect to scrcpy server, there will be two sockets, video and control socket.
@@ -69,7 +82,7 @@ class ScrcpyCore(Connection):
             socket.timeout:
         """
         logger.hr('Scrcpy server start')
-        commands = ScrcpyOptions.command_v120(jar_path=self.config.SCRCPY_FILEPATH_REMOTE)
+        commands = self._scrcpy_server_command()
         self._scrcpy_server_stream: AdbConnection = self.adb.shell(
             commands,
             stream=True,
