@@ -3,9 +3,9 @@ from .classes import SubStat
 # This file was auto-generated, do not modify it manually. To generate:
 # ``` python -m dev_tools.keyword_extract ```
 
-ATK = SubStat(
+ATKd = SubStat(
     id=1,
-    name='ATK',
+    name='ATKd',
     cn='攻击力',
     cht='攻擊力',
     en='ATK',
@@ -21,9 +21,9 @@ ATK = SubStat(
     jp='攻撃力',
     es='ATQ',
 )
-HP = SubStat(
+HPd = SubStat(
     id=3,
-    name='HP',
+    name='HPd',
     cn='生命值',
     cht='生命值',
     en='HP',
@@ -39,9 +39,9 @@ HP = SubStat(
     jp='HP',
     es='PV',
 )
-DEF = SubStat(
+DEFd = SubStat(
     id=5,
-    name='DEF',
+    name='DEFd',
     cn='防御力',
     cht='防禦力',
     en='DEF',
