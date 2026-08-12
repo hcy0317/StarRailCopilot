@@ -1,7 +1,9 @@
 import ctypes
+import json
 import os
 import re
 import subprocess
+import time
 
 import psutil
 
@@ -65,6 +67,54 @@ class PlatformWindows(PlatformBase, EmulatorManager):
             return cli
 
         raise EmulatorUnknown(f'Cannot find mumu-cli.exe for MuMu Player 12: {exe}')
+
+    @staticmethod
+    def _mumu12_process_started(cli: str, vmindex: int):
+        """
+        Returns:
+            bool | None: Whether the MuMu instance process is running, or None if unknown.
+        """
+        try:
+            result = subprocess.run(
+                [cli, 'info', '--vmindex', str(vmindex)],
+                capture_output=True,
+                text=True,
+                encoding='utf-8',
+                errors='ignore',
+                timeout=10,
+            )
+            if result.returncode != 0:
+                return None
+            data = json.loads(result.stdout)
+            if str(vmindex) in data:
+                data = data[str(vmindex)]
+            started = data.get('is_process_started')
+            return started if isinstance(started, bool) else None
+        except (OSError, subprocess.TimeoutExpired, json.JSONDecodeError, AttributeError, TypeError):
+            return None
+
+    def _mumu12_stop(self, cli: str, vmindex: int):
+        """Stop a MuMu instance and wait until its asynchronous shutdown settles."""
+        if self._mumu12_process_started(cli, vmindex) is False:
+            logger.info(f'MuMu instance {vmindex} is already stopped, skip shutdown')
+            return
+
+        process = self.execute(f'"{cli}" control --vmindex {vmindex} shutdown')
+        try:
+            process.wait(timeout=10)
+        except subprocess.TimeoutExpired as e:
+            process.kill()
+            raise EmulatorUnknown(f'MuMu shutdown command timed out for instance {vmindex}') from e
+
+        deadline = time.monotonic() + 30
+        while time.monotonic() < deadline:
+            started = self._mumu12_process_started(cli, vmindex)
+            if started is False:
+                logger.info(f'MuMu instance {vmindex} stopped')
+                return
+            time.sleep(0.5)
+
+        raise EmulatorUnknown(f'MuMu instance {vmindex} did not stop within 30 seconds')
 
     @classmethod
     def execute(cls, command):
@@ -178,7 +228,7 @@ class PlatformWindows(PlatformBase, EmulatorManager):
             # mumu-cli.exe control --vmindex 1 shutdown
             if instance.MuMuPlayer12_id is None:
                 logger.warning(f'Cannot get MuMu instance index from name {instance.name}')
-            self.execute(f'"{self._mumu12_cli_path(exe)}" control --vmindex {instance.MuMuPlayer12_id} shutdown')
+            self._mumu12_stop(self._mumu12_cli_path(exe), instance.MuMuPlayer12_id)
         elif instance == Emulator.LDPlayerFamily:
             # ldconsole.exe quit --index 0
             self.execute(f'"{Emulator.single_to_console(exe)}" quit --index {instance.LDPlayer_id}')

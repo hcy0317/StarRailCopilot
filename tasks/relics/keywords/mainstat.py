@@ -3,18 +3,18 @@ from .classes import MainStat
 # This file was auto-generated, do not modify it manually. To generate:
 # ``` python -m dev_tools.keyword_extract ```
 
-HP = MainStat(
+HPd = MainStat(
     id=1,
-    name='HP',
+    name='HPd',
     cn='生命值',
     cht='生命值',
     en='HP',
     jp='HP',
     es='PV',
 )
-ATK = MainStat(
+ATKd = MainStat(
     id=2,
-    name='ATK',
+    name='ATKd',
     cn='攻击力',
     cht='攻擊力',
     en='ATK',

@@ -52,8 +52,8 @@ class ManualConfig:
 
     HERMIT_FILEPATH_LOCAL = './bin/hermit/hermit.apk'
 
-    SCRCPY_FILEPATH_LOCAL = './bin/scrcpy/scrcpy-server-v1.20.jar'
-    SCRCPY_FILEPATH_REMOTE = '/data/local/tmp/scrcpy-server-v1.20.jar'
+    SCRCPY_FILEPATH_LOCAL = './bin/scrcpy/scrcpy-server-v1.25.jar'
+    SCRCPY_FILEPATH_REMOTE = '/data/local/tmp/scrcpy-server-v1.25.jar'
 
     MAATOUCH_FILEPATH_LOCAL = './bin/MaaTouch/maatouch'
     MAATOUCH_FILEPATH_REMOTE = '/data/local/tmp/maatouch'

@@ -1,4 +1,5 @@
 import codecs
+import json
 import os
 import re
 import typing as t
@@ -205,6 +206,23 @@ class Emulator(EmulatorBase):
         except FileNotFoundError:
             return ''
 
+    @staticmethod
+    def mumu12_vm_config_to_serial(file: str) -> str:
+        """
+        Args:
+            file: Path to vm_config.json
+
+        Returns:
+            str: serial such as `127.0.0.1:16384`
+        """
+        try:
+            with open(file, 'r', encoding='utf-8', errors='ignore') as f:
+                data = json.load(f)
+            port = data['vm']['nat']['port_forward']['adb']['host_port']
+            return f'127.0.0.1:{int(port)}'
+        except (FileNotFoundError, OSError, KeyError, TypeError, ValueError, json.JSONDecodeError):
+            return ''
+
     def iter_instances(self):
         """
         Yields:
@@ -302,10 +320,22 @@ class Emulator(EmulatorBase):
         elif self == Emulator.MuMuPlayer12:
             # vms/MuMuPlayer-12.0-0
             for folder in self.list_folder('../vms', is_dir=True):
+                found = set()
+                name = os.path.basename(folder)
+                serial = Emulator.mumu12_vm_config_to_serial(os.path.join(folder, 'configs', 'vm_config.json'))
+                if serial:
+                    found.add(serial)
+                    yield EmulatorInstance(
+                        serial=serial,
+                        name=name,
+                        path=self.path,
+                    )
                 for file in iter_folder(folder, ext='.nemu'):
                     serial = Emulator.vbox_file_to_serial(file)
-                    name = os.path.basename(folder)
                     if serial:
+                        if serial in found:
+                            continue
+                        found.add(serial)
                         yield EmulatorInstance(
                             serial=serial,
                             name=name,
@@ -318,7 +348,7 @@ class Emulator(EmulatorBase):
                             name=name,
                             path=self.path,
                         )
-                        if instance.MuMuPlayer12_id:
+                        if instance.MuMuPlayer12_id is not None:
                             instance.serial = f'127.0.0.1:{16384 + 32 * instance.MuMuPlayer12_id}'
                             yield instance
         elif self == Emulator.MEmuPlayer:
