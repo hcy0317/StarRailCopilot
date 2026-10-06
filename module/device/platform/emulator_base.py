@@ -119,6 +119,12 @@ class EmulatorInstanceBase:
 
         return None
 
+    @cached_property
+    def MuMuPlayer12_android_version(self):
+        """Android runtime version encoded in the MuMu instance folder name."""
+        res = re.search(r'(?:MuMuPlayer(?:Global)?|YXArkNights)-(\d+\.\d+)-\d+', self.name)
+        return res.group(1) if res else None
+
     def mumu_vms_config(self, file):
         """
         Args:
