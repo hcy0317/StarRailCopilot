@@ -216,12 +216,13 @@ def retry(func):
 
 
 class NemuIpcImpl:
-    def __init__(self, nemu_folder: str, instance_id: int, display_id: int = 0):
+    def __init__(self, nemu_folder: str, instance_id: int, display_id: int = 0, android_version: str = '12.0'):
         """
         Args:
             nemu_folder: Installation path of MuMu12, e.g. E:/ProgramFiles/MuMuPlayer-12.0
             instance_id: Emulator instance ID, starting from 0
             display_id: Always 0 if keep app alive was disabled
+            android_version: Android runtime version of the selected emulator instance
         """
         self.nemu_folder: str = nemu_folder
         self.instance_id: int = instance_id
@@ -229,10 +230,10 @@ class NemuIpcImpl:
 
         # try to load dll from various path
         list_dll = [
+            # MuMu supports parallel Android 12 and 15 runtimes with different SDKs.
+            os.path.abspath(os.path.join(nemu_folder, f'./nx_device/{android_version}/shell/sdk/external_renderer_ipc.dll')),
             # MuMuPlayer12
             os.path.abspath(os.path.join(nemu_folder, './shell/sdk/external_renderer_ipc.dll')),
-            # MuMuPlayer12 5.0
-            os.path.abspath(os.path.join(nemu_folder, './nx_device/12.0/shell/sdk/external_renderer_ipc.dll')),
             # MuMuPlayer12 6.0
             os.path.abspath(os.path.join(nemu_folder, './nx_main/sdk/external_renderer_ipc.dll')),
         ]
@@ -486,6 +487,8 @@ class NemuIpc(Platform):
         """
         Initialize a nemu ipc implementation
         """
+        instance = self.emulator_instance
+        android_version = (instance.MuMuPlayer12_android_version if instance is not None else None) or '12.0'
         # Try existing settings first
         if self.config.EmulatorInfo_path:
             if 'MuMuPlayerGlobal' in self.config.EmulatorInfo_path:
@@ -498,7 +501,8 @@ class NemuIpc(Platform):
                     return NemuIpcImpl(
                         nemu_folder=folder,
                         instance_id=index,
-                        display_id=0
+                        display_id=0,
+                        android_version=android_version,
                     ).__enter__()
                 except (NemuIpcIncompatible, NemuIpcError, JobTimeout) as e:
                     logger.error(e)
@@ -517,14 +521,17 @@ class NemuIpc(Platform):
             impl = NemuIpcImpl(
                 nemu_folder=self.emulator_instance.emulator.abspath('../'),
                 instance_id=self.emulator_instance.MuMuPlayer12_id,
-                display_id=0
+                display_id=0,
+                android_version=android_version,
             )
             impl.connect_with_retry()
             return impl
-        except (NemuIpcIncompatible, NemuIpcError, JobTimeout) as e:
+        except (NemuIpcIncompatible, NemuIpcError, JobTimeout, EmulatorNotRunningError) as e:
             logger.error(e)
             logger.error('Unable to initialize NemuIpc')
-            raise RequestHumanTakeover
+            # An optional IPC probe can fail while ADB is already online.
+            # Preserve the screenshot fallback instead of aborting Device initialization.
+            raise RequestHumanTakeover from e
 
     def nemu_ipc_available(self) -> bool:
         if not IS_WINDOWS:
@@ -579,6 +586,11 @@ class NemuIpc(Platform):
         if not self.is_mumu_over_version_400:
             return super().check_mumu_app_keep_alive()
 
+        # The actual instance name distinguishes Android 12 and 15 configurations.
+        if self.emulator_instance is not None:
+            file = self.emulator_instance.mumu_vms_config('customer_config.json')
+            return self.check_mumu_app_keep_alive_400(file)
+
         # Try existing settings first
         if self.config.EmulatorInfo_path:
             index = NemuIpcImpl.serial_to_id(self.serial)
@@ -588,15 +600,7 @@ class NemuIpc(Platform):
                 if self.check_mumu_app_keep_alive_400(file):
                     return True
 
-        # Search emulator instance
-        if self.emulator_instance is None:
-            logger.warning('Failed to check check_mumu_app_keep_alive as emulator_instance is None')
-            return False
-        name = self.emulator_instance.name
-        file = self.emulator_instance.mumu_vms_config('customer_config.json')
-        if self.check_mumu_app_keep_alive_400(file):
-            return True
-
+        logger.warning('Failed to check check_mumu_app_keep_alive as emulator_instance is None')
         return False
 
     def nemu_ipc_release(self):
