@@ -204,6 +204,8 @@ class Combat(CombatInteract, CombatPrepare, CombatSupport, CombatTeam, CombatSki
                     continue
             if self.handle_popup_confirm():
                 continue
+            if self.handle_combat_popup():
+                continue
 
     def combat_execute(self, expected_end=None):
         """
@@ -228,7 +230,7 @@ class Combat(CombatInteract, CombatPrepare, CombatSupport, CombatTeam, CombatSki
                 logger.info(f'Combat execute ended at {expected_end.__name__}')
                 break
             if (self.appear(COMBAT_AGAIN) and
-                    self.image_color_count(COMBAT_AGAIN, color=(227, 227, 228), threshold=221, count=50)):
+                    self.image_color_count(COMBAT_AGAIN, color=(227, 227, 228), threshold=30, count=50)):
                 logger.info(f'Combat execute ended at {COMBAT_AGAIN}')
                 break
             if self.is_in_main():

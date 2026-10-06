@@ -468,7 +468,7 @@ DanHengImbibitorLunae = CharacterList(
     es='Dan Heng - Imbibitor Lunae',
     type_name='Imaginary',
     path_name='Destruction',
-    relic_setid=102,
+    relic_setid=134,
     ornament_setid=309,
 )
 Xueyi = CharacterList(
@@ -1017,6 +1017,19 @@ YaoGuang = CharacterList(
     relic_setid=130,
     ornament_setid=317,
 )
+Pearl = CharacterList(
+    id=1503,
+    name='Pearl',
+    cn='真珠',
+    cht='真珠',
+    en='Pearl',
+    jp='パール',
+    es='Perla',
+    type_name='Ice',
+    path_name='Elation',
+    relic_setid=133,
+    ornament_setid=308,
+)
 Ashveil = CharacterList(
     id=1504,
     name='Ashveil',
@@ -1107,6 +1120,32 @@ HimekoNova = CharacterList(
     path_name='Erudition',
     relic_setid=131,
     ornament_setid=327,
+)
+RobinSummeretto = CharacterList(
+    id=1512,
+    name='RobinSummeretto',
+    cn='知更鸟•晴歌',
+    cht='知更鳥•晴歌',
+    en='Robin • Summeretto',
+    jp='ロビン・夏空の歌',
+    es='Robin Estival',
+    type_name='Wind',
+    path_name='Remembrance',
+    relic_setid=127,
+    ornament_setid=323,
+)
+AventurineWaveflair = CharacterList(
+    id=1513,
+    name='AventurineWaveflair',
+    cn='砂金•戏浪',
+    cht='砂金•戲浪',
+    en='Aventurine • Waveflair',
+    jp='アベンチュリン・波と戯れる夏',
+    es='Aventurino Oleaje',
+    type_name='Quantum',
+    path_name='Elation',
+    relic_setid=129,
+    ornament_setid=325,
 )
 TrailblazerDestruction = CharacterList(
     id=8002,

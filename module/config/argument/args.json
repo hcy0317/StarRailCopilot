@@ -687,6 +687,9 @@
         "display": "hide",
         "option": [
           "_none_",
+          "Pearl",
+          "RobinSummeretto",
+          "AventurineWaveflair",
           "HimekoNova",
           "RinTohsaka",
           "Gilgamesh",
@@ -786,11 +789,14 @@
         "display": "hide",
         "option": [
           "_none_",
+          "Summer_Rides_the_Surf",
+          "Rise_and_Sing",
           "A_Star_That_Lights_the_Night",
           "Reforged_in_Hellfire",
           "Until_the_Flowers_Bloom_Again",
           "Welcome_to_the_Cosmic_City",
           "The_Finale_of_a_Lie",
+          "Colors_for_Tomorrow",
           "When_She_Decided_to_See",
           "Dazzled_by_a_Flowery_World",
           "This_Love_Forever",
@@ -855,6 +861,7 @@
           "But_the_Battle_Isn_t_Over",
           "Something_Irreplaceable",
           "Night_on_the_Milky_Way",
+          "Race_to_the_Horizon",
           "Tomorrow_Together",
           "Fly_Into_a_Pink_Tomorrow",
           "The_Forever_Victual",
@@ -863,6 +870,7 @@
           "For_Tomorrow_Journey",
           "Hey_Over_Here",
           "Before_the_Tutorial_Mission_Starts",
+          "A_Little_Getaway",
           "Today_Good_Luck",
           "Mushy_Shroomy_Adventures",
           "See_You_at_the_End",
@@ -960,6 +968,7 @@
         "display": "hide",
         "option": [
           "_none_",
+          "Cavern_of_Corrosion_Path_of_the_Secret_Actor",
           "Cavern_of_Corrosion_Path_of_Insight",
           "Cavern_of_Corrosion_Path_of_Possession",
           "Cavern_of_Corrosion_Path_of_Hidden_Salvation",
@@ -1142,6 +1151,7 @@
         "type": "select",
         "value": "Calyx_Golden_Treasures_Jarilo_VI",
         "option": [
+          "Cavern_of_Corrosion_Path_of_the_Secret_Actor",
           "Cavern_of_Corrosion_Path_of_Insight",
           "Cavern_of_Corrosion_Path_of_Possession",
           "Cavern_of_Corrosion_Path_of_Hidden_Salvation",
@@ -1271,6 +1281,7 @@
         "value": "do_not_use",
         "option": [
           "do_not_use",
+          "Cavern_of_Corrosion_Path_of_the_Secret_Actor",
           "Cavern_of_Corrosion_Path_of_Insight",
           "Cavern_of_Corrosion_Path_of_Possession",
           "Cavern_of_Corrosion_Path_of_Hidden_Salvation",
@@ -1322,6 +1333,9 @@
         "value": "FirstCharacter",
         "option": [
           "FirstCharacter",
+          "Pearl",
+          "RobinSummeretto",
+          "AventurineWaveflair",
           "HimekoNova",
           "RinTohsaka",
           "Gilgamesh",
@@ -1464,14 +1478,6 @@
         "display": "hide",
         "stored": "StoredEchoOfWar"
       },
-      "SimulatedUniverse": {
-        "type": "stored",
-        "value": {},
-        "display": "hide",
-        "stored": "StoredSimulatedUniverse",
-        "order": 6,
-        "color": "#8fb5fe"
-      },
       "Relic": {
         "type": "stored",
         "value": {},
@@ -1605,6 +1611,9 @@
         "value": "FirstCharacter",
         "option": [
           "FirstCharacter",
+          "Pearl",
+          "RobinSummeretto",
+          "AventurineWaveflair",
           "HimekoNova",
           "RinTohsaka",
           "Gilgamesh",
@@ -1845,6 +1854,12 @@
         "display": "display",
         "stored": "StoredBattlePassQuestSynthesizeConsumables"
       },
+      "BattlePassQuestPartyCar": {
+        "type": "stored",
+        "value": {},
+        "display": "display",
+        "stored": "StoredBattlePassQuestPartyCar"
+      },
       "BattlePassQuestStagnantShadow": {
         "type": "stored",
         "value": {},
@@ -2066,7 +2081,7 @@
         "value": {},
         "display": "display",
         "stored": "StoredInt",
-        "order": 7,
+        "order": 6,
         "color": "#ab7cf2"
       },
       "StallerJade": {
@@ -2074,8 +2089,16 @@
         "value": {},
         "display": "display",
         "stored": "StoredInt",
-        "order": 8,
+        "order": 7,
         "color": "#fc8f8b"
+      },
+      "SpecialPass": {
+        "type": "stored",
+        "value": {},
+        "display": "display",
+        "stored": "StoredInt",
+        "order": 8,
+        "color": "#ffd700"
       }
     },
     "CloudStorage": {
@@ -2218,6 +2241,9 @@
         "value": "FirstCharacter",
         "option": [
           "FirstCharacter",
+          "Pearl",
+          "RobinSummeretto",
+          "AventurineWaveflair",
           "HimekoNova",
           "RinTohsaka",
           "Gilgamesh",
@@ -2419,6 +2445,15 @@
         "value": "",
         "keepvalue": true,
         "display": "hide"
+      }
+    },
+    "RogueStorage": {
+      "SimulatedUniverse": {
+        "type": "stored",
+        "value": {},
+        "display": "display",
+        "stored": "StoredSimulatedUniverse",
+        "color": "#8fb5fe"
       }
     },
     "RogueBlessing": {

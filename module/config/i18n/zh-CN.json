@@ -246,6 +246,7 @@
     "Name": {
       "name": "副本名称",
       "help": "默认打本设置",
+      "Cavern_of_Corrosion_Path_of_the_Secret_Actor": "遗器：戏梦点星的伶人 & 贪噬禁果的异端（密伶之径）",
       "Cavern_of_Corrosion_Path_of_Insight": "遗器：领航员 & 名冶（观火之径）",
       "Cavern_of_Corrosion_Path_of_Possession": "遗器：魔法少女 & 卜者（魔占之径）",
       "Cavern_of_Corrosion_Path_of_Hidden_Salvation": "遗器：救世主 & 隐士（隐救之径）",
@@ -309,7 +310,7 @@
       "Stagnant_Shadow_Rime": "晋阶材料：冰（三月七 / 黑塔 / 杰帕德 / 佩拉）",
       "Stagnant_Shadow_Icicle": "晋阶材料：冰（彦卿 / 镜流 / 阮•梅）",
       "Stagnant_Shadow_Nectar": "晋阶材料：冰（米沙 / 大黑塔）",
-      "Stagnant_Shadow_Sirens": "晋阶材料：冰（长夜月 / 昔涟）",
+      "Stagnant_Shadow_Sirens": "晋阶材料：冰（长夜月 / 昔涟 / 真珠）",
       "Stagnant_Shadow_Fulmination": "晋阶材料：雷（阿兰 / 希露瓦 / 停云 / 白露）",
       "Stagnant_Shadow_Doom": "晋阶材料：雷（卡芙卡 / 景元 / 黄泉）",
       "Stagnant_Shadow_Mechwolf": "晋阶材料：雷（貊泽 / 阿格莱雅）",
@@ -317,11 +318,11 @@
       "Stagnant_Shadow_Gust": "晋阶材料：风（丹恒 / 布洛妮娅 / 桑博）",
       "Stagnant_Shadow_Celestial": "晋阶材料：风（刃 / 藿藿 / 黑天鹅）",
       "Stagnant_Shadow_Gloam": "晋阶材料：风（飞霄 / 那刻夏 / 风堇 / Saber）",
-      "Stagnant_Shadow_Cinders": "晋阶材料：风（刻律德菈）",
+      "Stagnant_Shadow_Cinders": "晋阶材料：风（刻律德菈 / 知更鸟•晴歌）",
       "Stagnant_Shadow_Quanta": "晋阶材料：量子（银狼 / 希儿 / 青雀）",
       "Stagnant_Shadow_Abomination": "晋阶材料：量子（玲可 / 符玄 / 雪衣）",
       "Stagnant_Shadow_Gelidmoon": "晋阶材料：量子（缇宝 / 赛飞儿 / 遐蝶 / Archer）",
-      "Stagnant_Shadow_Devour": "晋阶材料：量子（远坂凛）",
+      "Stagnant_Shadow_Devour": "晋阶材料：量子（砂金•戏浪 / 远坂凛）",
       "Stagnant_Shadow_Mirage": "晋阶材料：虚数（瓦尔特 / 罗刹 / 驭空）",
       "Stagnant_Shadow_Puppetry": "晋阶材料：虚数（丹恒•饮月 / 砂金 / 真理医生）",
       "Stagnant_Shadow_Timbre": "晋阶材料：虚数（星期日 / 乱破）",
@@ -371,6 +372,7 @@
       "name": "有遗器活动时，选择副本",
       "help": "次数耗尽后回退到默认打本设置",
       "do_not_use": "不参与双倍活动",
+      "Cavern_of_Corrosion_Path_of_the_Secret_Actor": "遗器：戏梦点星的伶人 & 贪噬禁果的异端（密伶之径）",
       "Cavern_of_Corrosion_Path_of_Insight": "遗器：领航员 & 名冶（观火之径）",
       "Cavern_of_Corrosion_Path_of_Possession": "遗器：魔法少女 & 卜者（魔占之径）",
       "Cavern_of_Corrosion_Path_of_Hidden_Salvation": "遗器：救世主 & 隐士（隐救之径）",
@@ -443,6 +445,9 @@
       "name": "支援角色",
       "help": "选择好友支援角色，未找到则选择第一个角色，建议置顶好友角色",
       "FirstCharacter": "支援列表第一个角色",
+      "Pearl": "[4.6] 真珠",
+      "RobinSummeretto": "[4.5] 知更鸟•晴歌",
+      "AventurineWaveflair": "[4.5] 砂金•戏浪",
       "HimekoNova": "[4.4] 姬子•启行",
       "RinTohsaka": "[4.4] 远坂凛",
       "Gilgamesh": "[4.4] 吉尔伽美什",
@@ -570,10 +575,6 @@
     },
     "EchoOfWar": {
       "name": "历战余响",
-      "help": ""
-    },
-    "SimulatedUniverse": {
-      "name": "模拟宇宙",
       "help": ""
     },
     "Relic": {
@@ -725,7 +726,7 @@
       "help": ""
     },
     "Item_Sea_Siren_Torn_Fin": {
-      "name": "晋阶材料：冰（长夜月 / 昔涟）",
+      "name": "晋阶材料：冰（长夜月 / 昔涟 / 真珠）",
       "help": ""
     },
     "Item_Thunder_Strum": {
@@ -733,7 +734,7 @@
       "help": ""
     },
     "Item_Charred_Bud_of_Twilight": {
-      "name": "晋阶材料：风（刻律德菈）",
+      "name": "晋阶材料：风（刻律德菈 / 知更鸟•晴歌）",
       "help": ""
     },
     "Item_Darkveil_Moonlight": {
@@ -745,7 +746,7 @@
       "help": ""
     },
     "Item_Sneering_Harlequin": {
-      "name": "晋阶材料：量子（远坂凛）",
+      "name": "晋阶材料：量子（砂金•戏浪 / 远坂凛）",
       "help": ""
     },
     "Item_Worldbreaker_Blade": {
@@ -930,6 +931,9 @@
       "name": "养成角色",
       "help": "",
       "_none_": "无",
+      "Pearl": "[4.6] 真珠",
+      "RobinSummeretto": "[4.5] 知更鸟•晴歌",
+      "AventurineWaveflair": "[4.5] 砂金•戏浪",
       "HimekoNova": "[4.4] 姬子•启行",
       "RinTohsaka": "[4.4] 远坂凛",
       "Gilgamesh": "[4.4] 吉尔伽美什",
@@ -1025,11 +1029,14 @@
       "name": "养成光锥",
       "help": "",
       "_none_": "无",
+      "Summer_Rides_the_Surf": "[4.5] 砂金•戏浪 | 5* 向浪花掷下盛夏",
+      "Rise_and_Sing": "[4.5] 知更鸟•晴歌 | 5* 你将起身歌唱",
       "A_Star_That_Lights_the_Night": "[4.4] 姬子•启行 | 5* 当一颗星照亮夜空",
       "Reforged_in_Hellfire": "[4.3] 千冶•刃 | 5* 灼尽炼狱的新骸",
       "Until_the_Flowers_Bloom_Again": "[4.2] 绯英 | 5* 邂逅于下一个花季",
       "Welcome_to_the_Cosmic_City": "[4.2] 银狼LV.999 | 5* 欢迎来到银河城",
       "The_Finale_of_a_Lie": "[4.1] 不死途 | 5* 一场谎言的终幕",
+      "Colors_for_Tomorrow": "[4.6] 真珠 | 5* 献给明日的色彩",
       "When_She_Decided_to_See": "[4.0] 爻光 | 5* 当她决定看见",
       "Dazzled_by_a_Flowery_World": "[4.0] 火花 | 5* 花花世界迷人眼",
       "This_Love_Forever": "[3.7] 昔涟 | 5* 爱如此刻永恒",
@@ -1094,6 +1101,7 @@
       "But_the_Battle_Isn_t_Over": "5* 但战斗还未结束",
       "Something_Irreplaceable": "5* 无可取代的东西",
       "Night_on_the_Milky_Way": "5* 银河铁道之夜",
+      "Race_to_the_Horizon": "4* 向着地平线的终点",
       "Tomorrow_Together": "4* 未来，有我们一起",
       "Fly_Into_a_Pink_Tomorrow": "4* 飞向粉色的明天",
       "The_Forever_Victual": "4* 永远的迷境饭",
@@ -1102,6 +1110,7 @@
       "For_Tomorrow_Journey": "4* 为了明日的旅途",
       "Hey_Over_Here": "4* 嘿，我在这儿",
       "Before_the_Tutorial_Mission_Starts": "4* 新手任务开始前",
+      "A_Little_Getaway": "4* 放个短假",
       "Today_Good_Luck": "4* 今日好手气",
       "Mushy_Shroomy_Adventures": "4* 菇菇嘎嘎历险记",
       "See_You_at_the_End": "4* 于那终点再见",
@@ -1195,6 +1204,7 @@
       "name": "养成外圈遗器",
       "help": "",
       "_none_": "无",
+      "Cavern_of_Corrosion_Path_of_the_Secret_Actor": "遗器：戏梦点星的伶人 & 贪噬禁果的异端（密伶之径）",
       "Cavern_of_Corrosion_Path_of_Insight": "遗器：领航员 & 名冶（观火之径）",
       "Cavern_of_Corrosion_Path_of_Possession": "遗器：魔法少女 & 卜者（魔占之径）",
       "Cavern_of_Corrosion_Path_of_Hidden_Salvation": "遗器：救世主 & 隐士（隐救之径）",
@@ -1410,6 +1420,10 @@
       "name": "累计合成消耗品10次",
       "help": ""
     },
+    "BattlePassQuestPartyCar": {
+      "name": "在派对车厢中抓住1只造物",
+      "help": ""
+    },
     "BattlePassQuestStagnantShadow": {
       "name": "完成3次「凝滞虚影」",
       "help": ""
@@ -1565,6 +1579,10 @@
     "StallerJade": {
       "name": "星琼",
       "help": ""
+    },
+    "SpecialPass": {
+      "name": "星轨专票",
+      "help": ""
     }
   },
   "CloudStorage": {
@@ -1701,6 +1719,16 @@
     "DebugMode": {
       "name": "开发模式",
       "help": "无停止条件，无异常处理，遇错误即停止，请按文档上报异常：https://github.com/LmeSzinc/StarRailCopilot/wiki/RogueMap_cn"
+    }
+  },
+  "RogueStorage": {
+    "_info": {
+      "name": "模拟宇宙记录",
+      "help": ""
+    },
+    "SimulatedUniverse": {
+      "name": "模拟宇宙",
+      "help": ""
     }
   },
   "Ornament": {

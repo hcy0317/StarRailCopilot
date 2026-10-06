@@ -1,17 +1,16 @@
 import re
 from datetime import datetime, timedelta
 
-import cv2
 import numpy as np
 
 from module.base.timer import Timer
-from module.base.utils import color_similarity_2d
+from module.base.utils import color_mask
 from module.exception import RequestHumanTakeover, ScriptError
 from module.logger import logger
 from module.ocr.ocr import Ocr
 from tasks.base.assets.assets_base_main_page import ROGUE_LEAVE_FOR_NOW
 from tasks.base.assets.assets_base_page import MAP_EXIT
-from tasks.base.page import page_item, page_main, page_rogue
+from tasks.base.page import page_item, page_main, page_rogue, page_gacha
 from tasks.dungeon.keywords import DungeonList
 from tasks.dungeon.keywords.dungeon import Simulated_Universe_World_1
 from tasks.dungeon.ui.state import OcrSimUniPoint
@@ -63,8 +62,7 @@ class OcrRogueWorld(Ocr):
     def pre_process(self, image):
         # Letter randomly moving up and down
         # Crop to the up/down border of the white letter
-        center = color_similarity_2d(image, color=(255, 255, 255))
-        cv2.inRange(center, 180, 255, dst=center)
+        center = color_mask(image, color=(255, 255, 255), threshold=75)
         # print(np.count_nonzero(center, axis=1))
         # World 8
         # [ 0  0  0  0  0  0  0  2 23 24 22 21 23 29 44 47 38 37 31 32 33 33 31 34
@@ -115,7 +113,7 @@ class RogueEntry(RouteBase, RogueRewardHandler, RoguePathHandler, DungeonRogueUI
                 continue
 
             if self.is_page_rogue_main() \
-                    and self.image_color_count(OCR_WORLD, color=(255, 255, 255), threshold=221, count=50):
+                    and self.image_color_count(OCR_WORLD, color=(255, 255, 255), threshold=30, count=50):
                 current = ocr.ocr_single_line(self.device.image)
                 if current:
                     break
@@ -197,7 +195,7 @@ class RogueEntry(RouteBase, RogueRewardHandler, RoguePathHandler, DungeonRogueUI
                 continue
 
             if self.is_page_rogue_main() \
-                    and self.image_color_count(OCR_WORLD, color=(255, 255, 255), threshold=221, count=50):
+                    and self.image_color_count(OCR_WORLD, color=(255, 255, 255), threshold=30, count=50):
                 current = ocr.ocr_single_line(self.device.image)
                 if not current:
                     continue
@@ -248,7 +246,7 @@ class RogueEntry(RouteBase, RogueRewardHandler, RoguePathHandler, DungeonRogueUI
                 self.interval_reset(REWARD_ENTER, interval=2)
                 continue
             if self.match_template_color(LEVEL_CONFIRM, interval=2):
-                if not self.image_color_count(LEVEL_CONFIRM, color=(223, 223, 225), threshold=240, count=50):
+                if not self.image_color_count(LEVEL_CONFIRM, color=(223, 223, 225), threshold=15, count=50):
                     self.interval_clear(LEVEL_CONFIRM)
                     continue
                 self.update_stamina_status()
@@ -373,7 +371,13 @@ class RogueEntry(RouteBase, RogueRewardHandler, RoguePathHandler, DungeonRogueUI
             if self.is_page_rogue_main():
                 logger.info('At is_page_rogue_main()')
                 return True
-            if not self.ui_page_appear(page_item) and self.appear(LEVEL_CONFIRM):
+            if self.appear(LEVEL_CONFIRM):
+                # page_item page_gacha also have button at bottom-left
+                # they are not LEVEL_CONFIRM
+                if self.ui_page_appear(page_item):
+                    return False
+                if self.ui_page_appear(page_gacha):
+                    return False
                 logger.info('At LEVEL_CONFIRM')
                 return True
             return False
