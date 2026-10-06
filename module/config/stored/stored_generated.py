@@ -6,6 +6,7 @@ from module.config.stored.classes import (
     StoredBattlePassQuestCavernOfCorrosion,
     StoredBattlePassQuestCredits,
     StoredBattlePassQuestEchoOfWar,
+    StoredBattlePassQuestPartyCar,
     StoredBattlePassQuestStagnantShadow,
     StoredBattlePassQuestSynthesizeConsumables,
     StoredBattlePassQuestTrailblazePower,
@@ -116,7 +117,6 @@ class StoredGenerated:
     Immersifier = StoredImmersifier("Dungeon.DungeonStorage.Immersifier")
     DungeonDouble = StoredDungeonDouble("Dungeon.DungeonStorage.DungeonDouble")
     EchoOfWar = StoredEchoOfWar("Dungeon.DungeonStorage.EchoOfWar")
-    SimulatedUniverse = StoredSimulatedUniverse("Dungeon.DungeonStorage.SimulatedUniverse")
     Relic = StoredRelic("Dungeon.DungeonStorage.Relic")
     DailyActivity = StoredDailyActivity("DailyQuest.DailyStorage.DailyActivity")
     DailyQuest = StoredDaily("DailyQuest.DailyStorage.DailyQuest")
@@ -127,13 +127,16 @@ class StoredGenerated:
     BattlePassQuestEchoOfWar = StoredBattlePassQuestEchoOfWar("BattlePass.BattlePassStorage.BattlePassQuestEchoOfWar")
     BattlePassQuestCredits = StoredBattlePassQuestCredits("BattlePass.BattlePassStorage.BattlePassQuestCredits")
     BattlePassQuestSynthesizeConsumables = StoredBattlePassQuestSynthesizeConsumables("BattlePass.BattlePassStorage.BattlePassQuestSynthesizeConsumables")
+    BattlePassQuestPartyCar = StoredBattlePassQuestPartyCar("BattlePass.BattlePassStorage.BattlePassQuestPartyCar")
     BattlePassQuestStagnantShadow = StoredBattlePassQuestStagnantShadow("BattlePass.BattlePassStorage.BattlePassQuestStagnantShadow")
     BattlePassQuestCavernOfCorrosion = StoredBattlePassQuestCavernOfCorrosion("BattlePass.BattlePassStorage.BattlePassQuestCavernOfCorrosion")
     BattlePassQuestTrailblazePower = StoredBattlePassQuestTrailblazePower("BattlePass.BattlePassStorage.BattlePassQuestTrailblazePower")
     Assignment = StoredAssignment("Assignment.Assignment.Assignment")
     Credit = StoredInt("DataUpdate.ItemStorage.Credit")
     StallerJade = StoredInt("DataUpdate.ItemStorage.StallerJade")
+    SpecialPass = StoredInt("DataUpdate.ItemStorage.SpecialPass")
     CloudRemainSeasonPass = StoredInt("DataUpdate.CloudStorage.CloudRemainSeasonPass")
     CloudRemainPaid = StoredInt("DataUpdate.CloudStorage.CloudRemainPaid")
     CloudRemainFree = StoredInt("DataUpdate.CloudStorage.CloudRemainFree")
     SimulatedUniverseFarm = StoredSimulatedUniverseElite("Rogue.RogueWorld.SimulatedUniverseFarm")
+    SimulatedUniverse = StoredSimulatedUniverse("Rogue.RogueStorage.SimulatedUniverse")

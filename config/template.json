@@ -155,7 +155,6 @@
       "Immersifier": {},
       "DungeonDouble": {},
       "EchoOfWar": {},
-      "SimulatedUniverse": {},
       "Relic": {}
     },
     "TrailblazePower": {
@@ -218,6 +217,7 @@
       "BattlePassQuestEchoOfWar": {},
       "BattlePassQuestCredits": {},
       "BattlePassQuestSynthesizeConsumables": {},
+      "BattlePassQuestPartyCar": {},
       "BattlePassQuestStagnantShadow": {},
       "BattlePassQuestCavernOfCorrosion": {},
       "BattlePassQuestTrailblazePower": {}
@@ -250,7 +250,8 @@
     },
     "ItemStorage": {
       "Credit": {},
-      "StallerJade": {}
+      "StallerJade": {},
+      "SpecialPass": {}
     },
     "CloudStorage": {
       "CloudRemainSeasonPass": {},
@@ -307,6 +308,9 @@
       "UseStamina": false,
       "SimulatedUniverseFarm": {},
       "Team": null
+    },
+    "RogueStorage": {
+      "SimulatedUniverse": {}
     },
     "RogueBlessing": {
       "PresetBlessingFilter": "preset",

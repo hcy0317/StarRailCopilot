@@ -6,7 +6,7 @@ from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
 from module.device.method.scrcpy.core import ScrcpyCore
-from module.device.platform.emulator_windows import Emulator
+from module.device.platform.emulator_windows import Emulator, EmulatorInstance
 from module.device.platform.platform_windows import PlatformWindows
 
 
@@ -83,6 +83,69 @@ class TestMuMuRuntimeCompatibility(unittest.TestCase):
         platform.execute.assert_called_once_with('"mumu-cli.exe" control --vmindex 1 shutdown')
         process.wait.assert_called_once_with(timeout=10)
         sleep.assert_not_called()
+
+
+class TestEmulatorLaunchCompatibility(unittest.TestCase):
+    def test_mumu_start_uses_local_cli_and_instance_index(self):
+        instance = EmulatorInstance(
+            serial='127.0.0.1:16416',
+            name='MuMuPlayer-12.0-1',
+            path='C:/Emulators/MuMuPlayer-12.0/shell/MuMuNxMain.exe',
+        )
+        platform = object.__new__(PlatformWindows)
+        platform._mumu12_cli_path = Mock(return_value='C:/Emulators/MuMuPlayer-12.0/shell/mumu-cli.exe')
+        platform.execute = Mock()
+
+        platform._emulator_start(instance)
+
+        platform._mumu12_cli_path.assert_called_once_with(instance.emulator.path)
+        platform.execute.assert_called_once_with(
+            '"C:/Emulators/MuMuPlayer-12.0/shell/mumu-cli.exe" control --vmindex 1 launch'
+        )
+
+    def test_mumu_stop_keeps_ordered_shutdown(self):
+        instance = EmulatorInstance(
+            serial='127.0.0.1:16416',
+            name='MuMuPlayer-12.0-1',
+            path='C:/Emulators/MuMuPlayer-12.0/shell/MuMuNxMain.exe',
+        )
+        platform = object.__new__(PlatformWindows)
+        platform._mumu12_cli_path = Mock(return_value='mumu-cli.exe')
+        platform._mumu12_stop = Mock()
+
+        platform._emulator_stop(instance)
+
+        platform._mumu12_stop.assert_called_once_with('mumu-cli.exe', 1)
+
+    def test_new_ldplayer_versions_launch_minimized(self):
+        for folder in ('LDPlayer9', 'LDPlayer14'):
+            with self.subTest(folder=folder):
+                instance = EmulatorInstance(
+                    serial='127.0.0.1:5557', name='leidian1', path=f'C:/Emulators/{folder}/dnplayer.exe'
+                )
+                platform = object.__new__(PlatformWindows)
+                platform.execute = Mock()
+
+                platform._emulator_start(instance)
+
+                platform.execute.assert_called_once_with(
+                    f'"C:/Emulators/{folder}/ldconsole.exe" launch --index 1 --mini'
+                )
+
+    def test_older_ldplayer_versions_keep_normal_launch(self):
+        for folder in ('LDPlayer', 'LDPlayer4'):
+            with self.subTest(folder=folder):
+                instance = EmulatorInstance(
+                    serial='127.0.0.1:5557', name='leidian1', path=f'C:/Emulators/{folder}/dnplayer.exe'
+                )
+                platform = object.__new__(PlatformWindows)
+                platform.execute = Mock()
+
+                platform._emulator_start(instance)
+
+                platform.execute.assert_called_once_with(
+                    f'"C:/Emulators/{folder}/ldconsole.exe" launch --index 1'
+                )
 
 
 if __name__ == '__main__':
